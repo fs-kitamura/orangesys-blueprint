@@ -55,10 +55,10 @@ orangesys-blueprint
 
 ## Components
 
-### [https://github.com/influxdata/telegraf][Telegraf]
+### [Telegraf](https://github.com/influxdata/telegraf)
 
 クライアントからメトリクスを集計し、転送します。https通信、jwt認証を利用します。
-influxdbの[https://docs.influxdata.com/influxdb/v1.0/write_protocols/line_protocol_reference/][line protocol]を利用します。
+influxdbの[line protocol](https://docs.influxdata.com/influxdb/v1.0/write_protocols/line_protocol_reference/)を利用します。
 顧客毎、agent endpointが異なってます。
 例)
 
@@ -70,27 +70,26 @@ influxdbの[https://docs.influxdata.com/influxdb/v1.0/write_protocols/line_proto
 
 default database [telegraf]
 
-### [https://github.com/containous/traefik][Traefik]
+### [Traefik](https://github.com/containous/traefik)
 
-[https://docs.traefik.io/toml/#acme-lets-encrypt-configuration][ACME (Let's Encrypt)] を利用し、SSL証明書を自動更新します。
+[ACME (Let's Encrypt)](https://docs.traefik.io/toml/#acme-lets-encrypt-configuration)を利用し、SSL証明書を自動更新します。
 
 Kubernetesのingressと連動します。
 
-[https://medium.com/@patrickeasters/using-traefik-with-tls-on-kubernetes-cb67fb43a948#.kuk2s9gqh][Using Traefik with TLS on Kubernetes]
+[Using Traefik with TLS on Kubernetes](https://medium.com/@patrickeasters/using-traefik-with-tls-on-kubernetes-cb67fb43a948)
 
-
-### [https://github.com/Mashape/kong][Kong]
+### [Kong](https://github.com/Mashape/kong)
 
 API Gateway
-- ユーザーからの[https://getkong.org/plugins/jwt/][JWT]認証
-- [https://getkong.org/plugins/correlation-id/][corelation-id]を追加、tracking用
-- [https://getkong.org/plugins/request-transformer/][querystring]をrewriteします。jwt認証からInfluxdb認証に切り替え、write only権限になります。
+- ユーザーからの[JWT](https://getkong.org/plugins/jwt/)認証
+- [corelation-id](https://getkong.org/plugins/correlation-id/)を追加、tracking用
+- [querystring](https://getkong.org/plugins/request-transformer/)をrewriteします。jwt認証からInfluxdb認証に切り替え、write only権限になります。
 
 
 ### Postgres
 
 Kongに関する設定を保存するDataBase
-[https://getkong.org/docs/0.9.x/clustering][kong-clustering]
+[kong-clustering](https://getkong.org/docs/0.9.x/clustering)
 
 ### Influxdb
 
@@ -103,14 +102,14 @@ trackingのため、logの部分を修正します。kongのcorrelation-idをロ
 detect(r.Header.Get("Orangesys-Request-Id"), "-"),
 >```
 
-[https://github.com/gavinzhou/influxdb][orangesys influxdb]
-[https://docs.influxdata.com/influxdb/v1.0/][influxdb Doc]
+[orangesys influxdb](https://github.com/gavinzhou/influxdb)
+[influxdb Doc](https://docs.influxdata.com/influxdb/v1.0/)
 
 ### Grafana
 
 influxdb dataのDashboardです。顧客毎環境を分離します。
 PLANによって、パフォーマンスが異なってます。
-[https://github.com/grafana/grafana][github grafana]
+[github grafana](https://github.com/grafana/grafana)
 
 ### alerting
 
