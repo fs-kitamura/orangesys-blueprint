@@ -58,8 +58,11 @@ orangesys-blueprint
 ### [Telegraf](https://github.com/influxdata/telegraf)
 
 クライアントからメトリクスを集計し、転送します。https通信、jwt認証を利用します。
+
 influxdbの[line protocol](https://docs.influxdata.com/influxdb/v1.0/write_protocols/line_protocol_reference/)を利用します。
+
 顧客毎、agent endpointが異なってます。
+
 例)
 
 >```
@@ -83,7 +86,8 @@ Kubernetesのingressと連動します。
 API Gateway
 - ユーザーからの[JWT](https://getkong.org/plugins/jwt/)認証
 - [corelation-id](https://getkong.org/plugins/correlation-id/)を追加、tracking用
-- [querystring](https://getkong.org/plugins/request-transformer/)をrewriteします。jwt認証からInfluxdb認証に切り替え、write only権限になります。
+- [querystring](https://getkong.org/plugins/request-transformer/)をrewriteします。
+  jwt認証からInfluxdb認証に切り替え、write only権限になります。
 
 
 ### Postgres
@@ -91,10 +95,12 @@ API Gateway
 Kongに関する設定を保存するDataBase
 [kong-clustering](https://getkong.org/docs/0.9.x/clustering)
 
-### Influxdb
+### [Influxdb](https://github.com/influxdata/influxdb)
 
 監視データを保存します。顧客毎環境を分離します。
+
 PLANによって、パフォーマンスが異なってます。
+
 trackingのため、logの部分を修正します。kongのcorrelation-idをログに吐き出します。
 
 >```
@@ -105,20 +111,24 @@ detect(r.Header.Get("Orangesys-Request-Id"), "-"),
 [orangesys influxdb](https://github.com/gavinzhou/influxdb)
 [influxdb Doc](https://docs.influxdata.com/influxdb/v1.0/)
 
-### Grafana
+### [Grafana](https://github.com/grafana/grafana)
 
 influxdb dataのDashboardです。顧客毎環境を分離します。
+
 PLANによって、パフォーマンスが異なってます。
+
 [github grafana](https://github.com/grafana/grafana)
 
 ### alerting
 
 Grafana4.0からalerting機能を追加します。
+
 現時点mailとslackを対応します。
 
 ### MariaDB
 
 Grafanaの設定、Dashboardを保存します。
+
 databaseを顧客毎分けます、インスタンスが共通となります。
 
 >```
