@@ -1,3 +1,57 @@
+# init orangesys in gke
+### create gke in tokyo
+>```
+gcloud container clusters create orangesys-io \
+   --zone asia-northeast1-c \
+   --scopes "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
+>```
+
+### create namespace
+>```
+kubectl create namespace opsbot
+kubectl create namespace apigateway
+>```
+
+### create thrid resource
+>```
+cat << EOF > storage.yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: generic
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard
+EOF
+
+kubectl create -f storage.yaml
+>```
+
+### create slack8s bot in opsbot namespace
+>```
+helm install --namespace opsbot --name="k8s-event" --set "SlackToken=xoxb-88888888888-zzzzzzzzzzZossLxVzjZ0koe,SlackChannel=#ops" slack8s
+>```
+
+### create stripe backend server in k8s
+>```
+helm install --namespace apigateway --name="stripe" --set StripeSecretKey=sk_test_xxZZZ27PV9ZZxE1XYAA00jq orangesys-srv
+```
+
+### create orangeapi in k8s
+>```
+helm install --namespace apigateway --name="sys" orangeapi
+>```
+
+### create app.orangesys.io
+>```
+helm install --namespace apigateway --name-template="{{ randAlpha 3 | lower }}" app-orangesys
+>```
+
+### create kube-cert-manager
+>```
+helm install --namespace apigateway --name="app" kube-cert-manager
+>```
+
 # upgrade node cluster with zero downtime
 ### set container/cluster name
 >```
