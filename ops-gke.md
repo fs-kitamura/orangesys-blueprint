@@ -32,24 +32,40 @@ kubectl create -f storage.yaml
 helm install --namespace opsbot --name="k8s-event" --set "SlackToken=xoxb-88888888888-zzzzzzzzzzZossLxVzjZ0koe,SlackChannel=#ops" slack8s
 >```
 
-### create stripe backend server in k8s
+### create kube-cert-manager in apigateway
 >```
-helm install --namespace apigateway --name="stripe" --set StripeSecretKey=sk_test_xxZZZ27PV9ZZxE1XYAA00jq orangesys-srv
-```
-
-### create orangeapi in k8s
->```
-helm install --namespace apigateway --name="sys" orangeapi
+kubectl create secret --namespace apigateway generic saas-orangesys-io --from-file=orangesys-5f254b751dae.json
+helm install --namespace apigateway --name="ssl" kube-cert-manager
 >```
 
-### create app.orangesys.io
+### create app.orangesys.io in apigateway
 >```
+gcloud compute addresses create app-orangesys-io-ingress --global
+kubectl create -f ssl-app-orangesys-io-ing.yaml --namespace apigateway
 helm install --namespace apigateway --name-template="{{ randAlpha 3 | lower }}" app-orangesys
 >```
 
-### create kube-cert-manager
+### create sysapi.orangesys.io in apigateway
 >```
-helm install --namespace apigateway --name="app" kube-cert-manager
+gcloud compute addresses create sysapi-orangesys-io-ingress --global
+
+kubectl create -f ssl-sysapi-orangesys-io-ing.yaml --namespace apigateway
+
+helm install --namespace apigateway --name="stripe" --set StripeSecretKey=XXxxxxxxX orangesys-srv
+
+helm install --namespace apigateway --name="sys" --set FIREBASE_URL="https://saas-orangesys-io.firebaseio.com",FIREBASE_SECRETS="XXXXxxxxxx" orangeapi
+>```
+
+
+### create kong in apigateway
+>```
+helm dep up kong
+helm install --namespace apigateway --name="orangesys" kong
+>```
+
+### create grafana dashboard storage in apigateway
+>```
+helm install --namespace apigateway --name="grafana" mariadb
 >```
 
 # upgrade node cluster with zero downtime
