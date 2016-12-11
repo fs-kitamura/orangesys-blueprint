@@ -6,10 +6,19 @@ gcloud container clusters create orangesys-io \
    --scopes "cloud-platform,storage-ro,logging-write,monitoring-write,service-control,service-management,https://www.googleapis.com/auth/ndev.clouddns.readwrite"
 >```
 
+### required helm
+
+https://github.com/kubernetes/helm
+
+
+### clone helm charts
+>```
+git clone https://github.com/orangesys/charts
+>```
+
 ### create namespace
 >```
-kubectl create namespace opsbot
-kubectl create namespace apigateway
+k create -f allnamespace/0-namespace.yaml
 >```
 
 ### create thrid resource
@@ -73,7 +82,6 @@ helm install --namespace apigateway --name="grafana" mariadb
 >```
 gcloud config set container/cluster orangesysio
 >```
-
 
 ### create new node pools
 >```

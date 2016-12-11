@@ -18,7 +18,7 @@ orangesys-blueprint
                   │
                   ▼                                                   
        ┌─────────────────────┐                                        
-       │       Traefik       │                                        
+       │       Ingress       │                                        
        └─────────────────────┘                                        
                   │                                                   
                   ▼                                                   
@@ -53,8 +53,8 @@ orangesys-blueprint
                         │              └──────┐                      
                         ▼                     │                                                       
                    ┌──────────┐               │                    
-        slack ───▶ │ alerting ├─┐             │       ┌───────────┐
-        email      └─┬────────┘ ├─┐           └──────▶│  MariaDB  │
+                   │  slack   ├─┐             │       ┌───────────┐
+                   └─┬────────┘ ├─┐           └──────▶│  MariaDB  │
                      └─┬────────┘ │                   └───────────┘             
                        └──────────┘                                             
 ```
@@ -76,16 +76,6 @@ influxdbの[line protocol](https://docs.influxdata.com/influxdb/v1.0/write_proto
   urls = ["https://pqaxel.i.orangesys.io/?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2OTA1MmI0ZWMzODk0ZjZiOWJiM2Q0ZGE2NDg0ZGQ3NiJ9.9dEvXPYp7IhRjexFfBWR5uBMOoR0U7tJdBh-f4Fwxdw"]
   database = "telegraf" # required
 >```
-
-default database [telegraf]
-
-### [Traefik](https://github.com/containous/traefik)
-
-[ACME (Let's Encrypt)](https://docs.traefik.io/toml/#acme-lets-encrypt-configuration)を利用し、SSL証明書を自動更新します。
-
-Kubernetesのingressと連動します。
-
-[Using Traefik with TLS on Kubernetes](https://medium.com/@patrickeasters/using-traefik-with-tls-on-kubernetes-cb67fb43a948)
 
 ### [Kong](https://github.com/Mashape/kong)
 
@@ -129,7 +119,8 @@ PLANによって、パフォーマンスが異なってます。
 
 Grafana4.0からalerting機能を追加します。
 
-現時点mailとslackを対応します。
+現時点slackとwebhookを対応します。
+_email機能が未開放 in Orangesys_
 
 ### MariaDB
 
