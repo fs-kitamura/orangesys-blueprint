@@ -69,12 +69,12 @@ orangesys-blueprint
 
 例)
 
->```
+```
 [[outputs.orangesys]]
   urls = ["https://demo.i.orangesys.io/"]
   jwt_token = <jwt_token>
   database = "telegraf" # required
->```
+```
 
 ### [Kong](https://github.com/Mashape/kong)
 
@@ -112,7 +112,7 @@ Grafanaの設定、Dashboardを保存します。
 
 databaseを顧客毎分けます、インスタンスが共通となります。
 
->```
+```
 grafanaのdefault.ini
 [database]
 type = mysql
@@ -120,7 +120,7 @@ host = 127.0.0.1:3306
 name = grafana
 user = root
 password = root
->```
+```
 
 ## License
 
