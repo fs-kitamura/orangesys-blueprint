@@ -4,7 +4,7 @@ orangesys-blueprint
 
 # Architecture
 
-```
+```yml
   ┌────────────┐     ┌─────────────┐      ┌─────────────┐
   │  Telegraf  ├─┐   │   Telegraf  ├─┐    │   Telegraf  ├─┐
   └─┬──────────┘ ├─┐ └─┬───────────┘ ├─┐  └─┬───────────┘ ├─┐
@@ -69,7 +69,7 @@ orangesys-blueprint
 
 例)
 
-```
+```bash
 [[outputs.orangesys]]
   urls = ["https://demo.i.orangesys.io/"]
   jwt_token = <jwt_token>
@@ -82,7 +82,6 @@ API Gateway
 - ユーザーからの[JWT](https://getkong.org/plugins/jwt/)認証
 - [querystring](https://getkong.org/plugins/request-transformer/)をrewriteします。
   jwt認証からInfluxdb認証に切り替え、write only権限になります。
-
 
 ### Postgres
 
@@ -112,7 +111,7 @@ Grafanaの設定、Dashboardを保存します。
 
 databaseを顧客毎分けます、インスタンスが共通となります。
 
-```
+```bash
 grafanaのdefault.ini
 [database]
 type = mysql
