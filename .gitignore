@@ -3,3 +3,4 @@
 *.tgz
 voyager/GOOGLE_SERVICE_ACCOUNT_JSON_KEY
 voyager/orangesysio-googledns.json
+*.DS_Store*
